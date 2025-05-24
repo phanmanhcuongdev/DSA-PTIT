@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int A[1000];int n;
+
+bool doixung(int B[]){
+	int i=0,j=n-1;
+	while(i<j){
+		if(B[i]!=B[j]) return false;
+		i++;j--;
+	}
+	return true;
+}
+
+void sinhnhiphan(int i){
+	if(i==n){
+		if(doixung(A)==false) return;
+		for(int j=0;j<n;j++){
+			cout<<A[j]<<" ";
+		}
+		cout<<endl;
+		return;
+	}
+	A[i]=0;
+	sinhnhiphan(i+1);
+	A[i]=1;
+	sinhnhiphan(i+1);
+}
+
+int main(){
+	cin>>n;
+	sinhnhiphan(0);
+}
