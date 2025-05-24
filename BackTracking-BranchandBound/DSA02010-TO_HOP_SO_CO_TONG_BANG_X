@@ -1,0 +1,60 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>>
+
+using namespace std;
+
+#define t() int t;cin>>t;while(t--)
+#define FOR(i,x,y) for(int i=x;i<y;i++)
+#define nhap(x) int x;cin>>x;
+#define pb push_back
+
+vector<int> ram;
+vector<int> res;
+vector<vector<int>> result;
+
+
+void Tong_bang_x(int x,int index){
+    if(x==0){
+        result.pb(res);
+        return;
+    }
+    FOR(i,index,ram.size()){
+        if(ram[i]<=x){
+            res.pb(ram[i]);
+            Tong_bang_x(x-ram[i],i);
+            res.pop_back();
+        }
+    }
+}
+
+int main(){
+    t(){
+        nhap(n);
+        nhap(k);
+        vector<int> input;
+        FOR(i,0,n){
+            nhap(x);
+            input.pb(x);
+        }
+        ram=input;
+        Tong_bang_x(k,0);
+        if(result.empty()) {
+            cout<<-1<<endl;
+            continue;
+        }
+        for(auto y:result){
+            cout<<'[';
+            int i=0;
+            for(auto x:y){
+                if(i==y.size()-1) cout<<x;
+                else cout<<x<<" ";
+                i++;
+            }
+            cout<<']';
+        }
+        result.clear();
+        ram.clear();
+        cout<<endl;
+    }
+}
