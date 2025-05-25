@@ -20,7 +20,7 @@ class DSU{
 			int pu=find(u);
 			int pv=find(v);
 			if(pu==pv) return;
-			if(rank[pu]<pv) swap(pu,pv);
+			if(rank[pu]<rank[pv]) swap(pu,pv);
 			parent[pv]=pu;
 			if(rank[pv]==rank[pu]) rank[pu]++;
 		}
