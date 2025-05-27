@@ -4,25 +4,42 @@
 
 using namespace std;
 
-int main()
-{
-	int t;cin>>t;while(t--)
-	{
-		int a,b;
-		cin>>a>>b;
-		vector<int> A[1001];
-		for(int i=0;i<b;i++){
-			int x,y;
-			cin>>x>>y;
-			A[x].push_back(y);
-			A[y].push_back(x);
-		}
-		for(int i=0;i<a;i++)
+class Graph{
+private:
+	int n;
+	vector<vector<int>> adj;
+public:
+	Graph(int n):n(n){
+		adj.resize(n+1);
+	}
+	void addEdge(int u,int v){
+		adj[u].push_back(v);
+		adj[v].push_back(u);
+	}
+	void display(){
+		for(int i=1;i<=n;i++)
 		{
-			cout<<i+1<<": ";
-			for(auto z:A[i+1]) cout<<z<<" ";
+			cout<<i<<": ";
+			for(auto temp:adj[i]) cout<<temp<<" ";
 			cout<<endl;
 		}
-		
 	}
+};
+
+void solve()
+{
+	int n,k;cin>>n>>k;
+	Graph g(n);
+	for(int i=0;i<k;i++)
+	{
+		int u,v;cin>>u>>v;
+		g.addEdge(u,v);
+	}
+	g.display();
+}
+
+int main()
+{
+	int t;cin>>t;while(t--) solve();
+	return 0;
 }
