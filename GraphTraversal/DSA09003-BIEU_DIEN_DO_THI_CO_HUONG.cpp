@@ -1,32 +1,47 @@
 #include<iostream>
 #include<vector>
 #include<algorithm>
+#include<set>
+#include<sstream>
 
 using namespace std;
 
-int main(){
-	int t;cin>>t;while(t--)
-	{
-		int n,k;
-		cin>>n>>k;
-		vector<pair<int,int>> Ex;
-		vector<int> res[1001];
-		for(int i=0;i<k;i++)
-		{
-			int a,b;
-			cin>>a>>b;
-			Ex.push_back({a,b});
-			res[a].push_back(b);
-		}
+class Graph{
+private:
+	int n;
+	vector<vector<int>> adj;
+public:
+	Graph(int n):n(n){
+		adj.resize(n+1);
+	}
+	void addEdge(int u,int v){
+		adj[u].push_back(v);
+	}
+	void display(){
 		for(int i=1;i<=n;i++)
 		{
-			sort(res[i].begin(),res[i].end());
 			cout<<i<<": ";
-			for(auto x:res[i])
-			{
-				cout<<x<<" ";
-			}
+			sort(adj[i].begin(),adj[i].end());
+			for(int temp:adj[i]) cout<<temp<<" ";
 			cout<<endl;
 		}
 	}
+};
+
+void solve()
+{
+	int n,k;
+	cin>>n>>k;
+	Graph g(n);
+	for(int i=1;i<=k;i++){
+		int u,v;cin>>u>>v;
+		g.addEdge(u,v);
+	}
+	g.display();
+}
+
+int main()
+{
+	int t;cin>>t;while(t--) solve();
+	return 0;
 }
