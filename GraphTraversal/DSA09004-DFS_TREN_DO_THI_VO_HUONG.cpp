@@ -1,40 +1,60 @@
 #include<iostream>
 #include<vector>
 #include<algorithm>
+#include<set>
+#include<sstream>
 
 using namespace std;
 
-void dfs(int u,vector<int> Ex[1000],vector<bool> &visited,vector<int> &res)
-{
-	visited[u]=true;
-	res.push_back(u);
-	for(auto x:Ex[u]){
-		if(!visited[x])
+class Graph{
+private:
+	int n;
+	vector<vector<int>> adj;
+	vector<int> result;
+	vector<bool> visited;
+public:
+	Graph(int n):n(n){
+		adj.resize(n+1);
+		visited.resize(n+1);
+	}
+	void addEdge(int u,int v){
+		adj[u].push_back(v);
+		adj[v].push_back(u);
+	}
+	void dfs(int u){
+		visited[u]=true;
+		result.push_back(u);
+		for(int v:adj[u])
 		{
-			dfs(x,Ex,visited,res);
+			if(!visited[v])
+			{
+				dfs(v);
+			}
 		}
 	}
+	void display(int start){
+		fill(visited.begin(),visited.end(),false);
+		dfs(start);
+		for(int p:result) cout<<p<<" ";
+		cout<<endl;
+		result.clear();
+	}
+};
+
+void solve()
+{
+	int n,k,start;
+	cin>>n>>k>>start;
+	Graph g(n);
+	for(int i=1;i<=k;i++){
+		int u,v;cin>>u>>v;
+		g.addEdge(u,v);
+	}
+	g.display(start);
 }
 
-int main(){
-	int t;cin>>t;while(t--)
-	{
-		int n,k,start;
-		cin>>n>>k>>start;
-		vector<pair<int,int>> Ex;
-		vector<int> temp[1001];
-		for(int i=0;i<k;i++)
-		{
-			int a,b;
-			cin>>a>>b;
-			Ex.push_back({a,b});
-			temp[a].push_back(b);
-			temp[b].push_back(a);
-		}
-		vector<bool> visited(n+1,false);
-		vector<int> result;
-		dfs(start,temp,visited,result);
-		for(auto x:result) cout<<x<<" ";
-		cout<<endl;
-	}
+int main()
+{
+	int t;cin>>t;while(t--) solve();
+	return 0;
 }
