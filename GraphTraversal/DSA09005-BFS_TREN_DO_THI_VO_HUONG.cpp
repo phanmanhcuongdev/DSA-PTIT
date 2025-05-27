@@ -1,48 +1,68 @@
 #include<iostream>
 #include<vector>
+#include<algorithm>
+#include<set>
+#include<sstream>
 #include<queue>
 
 using namespace std;
 
-vector<int> bfs(vector<int> input[1001],int n,int start)
-{
-	vector<int> res;
-	vector<bool> visited(n,false);
-	queue<int> temp;
-	temp.push(start);
-	visited[start]=true;
-	while(!temp.empty())
-	{
-		int x=temp.front();
-		temp.pop();
-		res.push_back(x);
-		for(auto y:input[x])
+class Graph{
+private:
+	int n;
+	vector<vector<int>> adj;
+	vector<int> result;
+	vector<bool> visited;
+public:
+	Graph(int n):n(n){
+		adj.resize(n+1);
+		visited.resize(n+1);
+	}
+	void addEdge(int u,int v){
+		adj[u].push_back(v);
+		adj[v].push_back(u);
+	}
+	void bfs(int u){
+		queue<int> q;
+		q.push(u);
+		visited[u]=true;
+		while(!q.empty())
 		{
-			if(!visited[y])
+			int current=q.front();q.pop();
+			result.push_back(current);
+			for(int v:adj[current])
 			{
-				visited[y]=true;
-				temp.push(y);
+				if(!visited[v])
+				{
+					visited[v]=true;
+					q.push(v);
+				}
 			}
 		}
 	}
-	return res;
+	void display(int start){
+		fill(visited.begin(),visited.end(),false);
+		bfs(start);
+		for(int p:result) cout<<p<<" ";
+		cout<<endl;
+		result.clear();
+	}
+};
+
+void solve()
+{
+	int n,k,start;
+	cin>>n>>k>>start;
+	Graph g(n);
+	for(int i=1;i<=k;i++){
+		int u,v;cin>>u>>v;
+		g.addEdge(u,v);
+	}
+	g.display(start);
 }
 
 int main()
 {
-	int t;cin>>t;while(t--)
-	{
-		int n,k,start;
-		cin>>n>>k>>start;
-		vector<int> Input[1001];
-		for(int index=0;index<k;index++)
-		{
-			int a,b;cin>>a>>b;
-			Input[a].push_back(b);
-			Input[b].push_back(a);
-		}
-		vector<int> res=bfs(Input,n,start);
-		for(auto x:res) cout<<x<<" ";
-		cout<<endl;
-	}
+	int t;cin>>t;while(t--) solve();
+	return 0;
 }
