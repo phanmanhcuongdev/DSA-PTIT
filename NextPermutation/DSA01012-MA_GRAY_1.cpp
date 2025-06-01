@@ -37,3 +37,29 @@ int main() {
     while (t--) solve();
     return 0;
 }
+
+/*
+using bitset,XOR
+void generateGray_XOR(int n) {
+    int total=1<<n;
+    for (int i=0;i<total;++i) {
+        int gray=i^(i>>1);
+        bitset<32> b(gray);
+        cout<<b.to_string().substr(32-n)<<" ";
+    }
+    cout<<"\n";
+}
+
+void solve() {
+    int n;
+    cin>>n;
+    generateGray_XOR(n);
+}
+
+int main() {
+    int t;
+    cin>>t;
+    while (t--) solve();
+    return 0;
+}
+*/
