@@ -3,7 +3,7 @@
 #include <set>
 
 using namespace std;
-
+//cách dùng multiset
 int main() {
     int t;
     cin>>t;
