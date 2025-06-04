@@ -1,31 +1,26 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
-#include<string>
-#include<numeric>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
+const int MOD = 1e9 + 7;
 
-#define t() long long t;cin>>t;while(t--)
-
-void tim_max(vector<long long> A){
-    long long tong=0;
-    long long MOD=(1e9+7);
-    for(long long i=0;i<A.size();i++){
-        tong=(tong+(A[i]%MOD)*(i%MOD))%MOD;
+long long calcSum(const vector<long long>& A) {
+    long long result = 0;
+    for (int i = 0; i < A.size(); ++i) {
+        result = (result + A[i] % MOD * i % MOD) % MOD;
     }
-    cout<<tong<<endl;
+    return result;
 }
 
-int main(){
-    t(){
-        long long n;cin>>n;
-        vector<long long> A;
-        for(long long i=0;i<n;i++){
-            long long x;cin>>x;
-            A.push_back(x);
-        }
-        sort(A.begin(),A.end());
-        tim_max(A);
-    }    
+int main() {
+    int t; cin >> t;
+    while (t--) {
+        int n; cin >> n;
+        vector<long long> A(n);
+        for (auto& x : A) cin >> x;
+        sort(A.begin(), A.end());
+        cout << calcSum(A) << '\n';
+    }
+    return 0;
 }
