@@ -1,28 +1,26 @@
 #include<iostream>
-#include<vector>
 #include<algorithm>
+#include<vector>
 
 using namespace std;
 
-int main(){
-    long long t;
-    cin>>t;
-    while(t--){
-        long long n;
-        cin>>n;
-        vector<long long> N(n);
-        for(long long i=0;i<n;i++){
-            cin>>N[i];
-        }
-        sort(N.begin(),N.end());
-        vector<long long> odd,even;
-        for(long long i=0;i<n;i++){
-            if(i%2!=0) odd.push_back(N[i]);
-            else even.push_back(N[i]);
-        }
-        long long a=0,b=0;
-        for(auto x:odd) a=(a*10+x);
-        for(auto x:even) b=(b*10+x);
-        cout<<(long long)a+b<<endl;
-    }
+#define run() long long t;cin>>t;while(t--)
+#define nhap(x) long long x;cin>>x;
+#define INP(A,n) for(long long i=0;i<n;i++) cin>>A[i];
+#define FOR(i,x,y) for(long long i=x;i<y;i++)
+
+int main()
+{
+	run(){
+		nhap(n);
+		vector<long long> A(n);
+		INP(A,n);
+		sort(A.begin(),A.end());
+		long long a=0,b=0;
+		FOR(i,0,n){
+			if(i%2==0) a=a*10+A[i];
+			else b=b*10+A[i];
+		}
+		cout<<a+b<<endl;
+	}
 }
